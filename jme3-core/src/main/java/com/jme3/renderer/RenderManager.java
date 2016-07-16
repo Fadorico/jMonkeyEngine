@@ -83,7 +83,7 @@ public class RenderManager {
     private Material forcedMaterial = null;
     private String forcedTechnique = null;
     private RenderState forcedRenderState = null;
-    private final List<MatParamOverride> forcedOverrides = new ArrayList<>();
+    private final SafeArrayList<MatParamOverride> forcedOverrides = new SafeArrayList<>(MatParamOverride.class);
     private int viewX, viewY, viewWidth, viewHeight;
     private final Matrix4f orthoMatrix = new Matrix4f();
     private final LightList filteredLightList = new LightList(null);
@@ -462,7 +462,7 @@ public class RenderManager {
      *
      * @return The forced material parameters.
      */
-    public List<MatParamOverride> getForcedMatParams() {
+    public SafeArrayList<MatParamOverride> getForcedMatParams() {
         return forcedOverrides;
     }
 
@@ -803,6 +803,15 @@ public class RenderManager {
      */
     public void setLightFilter(LightFilter lightFilter) {
         this.lightFilter = lightFilter;
+    }
+    
+    /**
+     * Returns the current LightFilter.
+     * 
+     * @return the current light filter 
+     */
+    public LightFilter getLightFilter() {
+        return this.lightFilter;
     }
 
     /**
