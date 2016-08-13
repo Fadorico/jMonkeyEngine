@@ -27,13 +27,12 @@ model {
                     source {
                         srcDir 'src/native/cpp'
                         srcDir bulletSrcPath
-                        exclude 'Bullet3OpenCL/**'
+                        exclude 'BulletMultiThreaded/GpuSoftBodySolvers/**'
                         include '**/*.cpp'
                     }
                     exportedHeaders {
                         srcDir 'src/native/cpp'
                         srcDir bulletSrcPath
-                        exclude 'Bullet3OpenCL/**'
                         include '**/*.h'
                     }
                 }
@@ -85,14 +84,10 @@ model {
 
             if (os == "osx") {
                 cppCompiler.args '-I', "$javaHome/include/darwin"
-                cppCompiler.args "-Ofast"
-                cppCompiler.args "-U_FORTIFY_SOURCE"
             } else if (os == "linux") {
                 cppCompiler.args "-fvisibility=hidden"
                 cppCompiler.args '-I', "$javaHome/include/linux"
                 cppCompiler.args "-fPIC"
-                cppCompiler.args "-Ofast"
-                cppCompiler.args "-U_FORTIFY_SOURCE"
                 cppCompiler.args "-fpermissive"
                 linker.args "-fvisibility=hidden"
             } else if (os == "windows") {
@@ -104,8 +99,6 @@ model {
                     }
                     cppCompiler.args "-fpermissive"
                     cppCompiler.args "-static"
-                    cppCompiler.args "-Ofast"
-                    cppCompiler.args "-U_FORTIFY_SOURCE"
                     linker.args "-static"
                     linker.args "-Wl,--exclude-all-symbols"
                 }
